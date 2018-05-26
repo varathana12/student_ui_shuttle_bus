@@ -1,0 +1,31 @@
+{
+  "name": "student-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
+    "axios": "^0.18.0",
+    "date-fns": "^2.0.0-alpha.7",
+    "material-design-icons": "^3.0.1",
+    "material-ui": "^1.0.0-beta.44",
+    "material-ui-icons": "^1.0.0-beta.36",
+    "material-ui-pickers": "^1.0.0-rc.4",
+    "moment": "^2.22.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-native-fit-image": "^1.5.4",
+    "react-redux": "^5.0.7",
+    "react-router": "4.2.0",
+    "react-router-dom": "4.2.2",
+    "react-scripts": "1.1.1",
+    "react-tap-event-plugin": "^3.0.2",
+    "redux": "^3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && cp -r build ~/Desktop/Shuttle-Bus-System/src/main/webapp/resources",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
