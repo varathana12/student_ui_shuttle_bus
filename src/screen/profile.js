@@ -35,7 +35,7 @@ class Profile extends React.Component {
         return (
             <div className={classes.root}>
             <div className={classes.profile} style={{backgroundColor:primary.main}}>
-                <ImageAvatars image={this.state.profile}/>
+                <ImageAvatars image={this.state.profile} username={student_info.username}/>
             </div>
                 <SimpleMediaCard student={student_info}/>
             </div>

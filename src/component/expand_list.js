@@ -7,7 +7,9 @@ import CancelDialog from './dialog/cancel_dialog'
 import QRView from './dialog/qr_view'
 import {id_to_name,convert_date_fomart} from "../init";
 import {connect} from 'react-redux'
-
+import {student_cancel,get_history} from "../api";
+import CancelStatus from './dialog/cancel_status'
+import {historyData} from "../actions";
 const styles = theme => ({
     root: {
         width: '100%',
@@ -35,24 +37,38 @@ const styles = theme => ({
 class SimpleTable extends React.Component{
     state = {
         cancel_dialog:false,
-        qr_view:false
+        qr_view:false,
+        id_cancel:0,
+        open_status:false,
+        status_cancel:false
     }
     cellItems(data){
-        const {source_data} = this.props
-        const {destination_id,source_id,departure_date,driver,bus_model} = data
+        const {destination_name,code,source_name,departure_date,driver,bus_model} = data
         console.log(data)
         return [
-            {name:'Source', data:id_to_name(source_data,source_id)},
-            {name:'Destination', data:id_to_name(source_data,destination_id)},
+            {name:'Code', data:code},
+            {name:'Source', data:source_name},
+            {name:'Destination', data:destination_name},
             {name:'Departure Date', data:convert_date_fomart(departure_date)},
             {name:'Bus Model', data:bus_model?bus_model:"to be decide"},
             {name:'Driver', data:driver?driver:"to be decide"},
         ];
     }
+    submitCancel(id){
+        student_cancel(id).then(res=>{
+            this.setState({open_status:true,status_cancel:res.status})
+        })
+    }
+    onConfirm(){
+        const {historyData} = this.props
+        get_history().then(res=>{
+            historyData(res)
+        })
+    }
 
     render() {
         const {classes,data} = this.props;
-        const {cancel_dialog,qr_view} = this.state;
+        const {cancel_dialog,qr_view,id_cancel,open_status,status_cancel} = this.state;
         const {schedule} = data
         return (
 
@@ -70,11 +86,11 @@ class SimpleTable extends React.Component{
                         );
                     })}
                     {
-
                         schedule ?
                             <TableRow>
                                 <TableCell>
-                                    <Button color="secondary" onClick={()=>this.setState({cancel_dialog:true})}
+                                    <Button color="secondary"
+                                            onClick={()=>this.setState({cancel_dialog:true,id_cancel:data.schedule_id})}
                                             className={classes.cancel} >Cancel</Button>
                                 </TableCell>
                                 <TableCell>
@@ -85,18 +101,27 @@ class SimpleTable extends React.Component{
                             :
                             <TableRow>
                                 <TableCell colSpan={2}>
-                                    <Button color="secondary" onClick={()=>this.setState({cancel_dialog:true})}
+                                    <Button color="secondary"
+                                            onClick={()=>this.setState({cancel_dialog:true,id_cancel:data.schedule_id})}
                                     className={classes.button}>Cancel</Button>
                                 </TableCell>
                             </TableRow>
                     }
-
-
                 </TableBody>
-                <CancelDialog onClose={()=>this.setState({cancel_dialog:false})} open={cancel_dialog}/>
+                <CancelDialog onClose={()=>this.setState({cancel_dialog:false})}
+                              open={cancel_dialog} onSubmit={()=>{this.submitCancel(id_cancel)}}/>
                 <QRView onClose={()=>this.setState({qr_view:false})} open={qr_view}/>
+                <CancelStatus open={open_status}
+                              status={status_cancel}
+                              Confirm={()=>this.onConfirm()}
+                              onClose={()=>this.setState({open_status:false})}/>
             </Table>
         );
+    }
+}
+const mapDispatchToProps = dispatch =>{
+    return {
+        historyData: data => (dispatch(historyData(data))),
     }
 }
 const mapStateToProps =state =>{
@@ -105,4 +130,4 @@ const mapStateToProps =state =>{
     }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(SimpleTable));
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(SimpleTable));

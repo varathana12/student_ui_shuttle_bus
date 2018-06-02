@@ -2,34 +2,21 @@ import React, { Fragment, PureComponent } from 'react';
 import { DatePicker } from 'material-ui-pickers';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
-import {selectReturnDate} from "../actions";
-import {init_max_date,init_min_return,init_return,date_enable} from "../init";
-import {connect} from 'react-redux'
-import 'material-design-icons/iconfont/material-icons.css'
-class ReturnDate extends PureComponent {
+import {selectReturnDate,tripChoice} from "../actions";
 
+import {max_date_booking, min_date_booking} from "../init/date_fuction";
+import {connect} from 'react-redux'
+class ReturnDate extends PureComponent {
     state={
         init_min_return:"",
         init_max_date:"",
-        date_enable:[]
+        date_enable:[],
+        list_date_booked:[]
 
-    }
-    componentWillMount(){
-
-
-
-        init_max_date().then(res=>{
-            this.setState({init_max_date:res})
-        })
-        date_enable().then(res=>{
-            this.setState({date_enable:res})
-        })
     }
 
     render() {
-
-        const { return_date,returnDate,departure_date } = this.props;
-        const {date_enable,init_max_date} = this.state
+        const { return_date,returnDate,departure_date,today,list_final } = this.props;
         return (
             <Fragment>
                 <MuiPickersUtilsProvider utils={MomentUtils} >
@@ -42,11 +29,11 @@ class ReturnDate extends PureComponent {
                         className={"date_picker"}
                         minDateMessage="return should after departure"
                         format={" DD/ MM/ YYYY"}
-                        minDate={init_min_return(departure_date)}
-                        maxDate={init_max_date}
+                        minDate={min_date_booking(departure_date)}
+                        maxDate={max_date_booking(today)}
                         shouldDisableDate={function (date) {
-                            for(let item in date_enable){
-                                if(date.day() === date_enable[item]){
+                            for(var i in list_final){
+                                if(date.toDate().getDay() === list_final[i]){
                                     return false
                                 }
                             }
@@ -60,14 +47,18 @@ class ReturnDate extends PureComponent {
 }
 const mapDispatchToProps = dispatch =>{
     return {
-        returnDate: date =>(dispatch(selectReturnDate(date)))
+        returnDate: date =>(dispatch(selectReturnDate(date))),
+        tripChoice:choice =>(dispatch(tripChoice(choice)))
     }
 }
 const mapStateToProps = state =>{
     return {
         return_date:state.return_date,
         departure_date:state.date,
-        isSubmit:state.isSubmit
+        isSubmit:state.isSubmit,
+        today:state.today,
+        list_enable:state.list_enable,
+        list_final:state.list_final
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ReturnDate)

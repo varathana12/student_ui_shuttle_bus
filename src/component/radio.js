@@ -26,7 +26,7 @@ const styles = theme => ({
 class RadioButtonsGroup extends React.Component {
 
     render() {
-        const { classes,choice,tripChoice } = this.props;
+        const { classes,choice,tripChoice,enable_choice } = this.props;
 
         return (
             <div className={classes.root}>
@@ -38,8 +38,12 @@ class RadioButtonsGroup extends React.Component {
                         value={choice}
                         onChange={(event)=>tripChoice(event.target.value)}
                     >
-                        <FormControlLabel value={"2"} control={<Radio color="primary"/>} label="Round Trip" />
-                        <FormControlLabel className={classes.radio_choice} value={"1"} control={<Radio color="primary"/>} label="One Trip" />
+                        <FormControlLabel
+                            value={"2"}
+                            disabled={!enable_choice}
+                            control={<Radio color="primary"/>} label="Round Trip" />
+                        <FormControlLabel
+                            className={classes.radio_choice} value={"1"} control={<Radio color="primary"/>} label="One Trip" />
 
                     </RadioGroup>
                 </FormControl>
@@ -60,6 +64,7 @@ const mapDispatchToProps = dispatch =>{
 const mapStateToProps = state =>{
     return {
         choice: state.choice,
+        enable_choice:state.enable_choice
     }
 }
 

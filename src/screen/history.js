@@ -50,17 +50,13 @@ class History extends React.Component {
         });
     };
     componentWillMount(){
-        const {history_data,historyData,source_data,source}= this.props
+        const {history_data,historyData}= this.props
         if(history_data.length === 0){
             get_history().then(res=>{
                 historyData(res)
             })
         }
-        if(source_data.length == 0){
-            source_data_api().then(res=>{
-                source(res)
-            })
-        }
+
     }
 
     render() {
@@ -81,7 +77,7 @@ class History extends React.Component {
                                             <tr>
                                                 <td>
                                                     <Typography className={classes.heading}>
-                                                        {id_to_name(source_data,item.destination_id)}</Typography>
+                                                        {item.destination_name}</Typography>
                                                 </td>
                                                 <td>
                                                     <Typography className={classes.secondaryHeading}>

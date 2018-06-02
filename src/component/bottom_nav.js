@@ -9,6 +9,7 @@ import {chageTitleHeader,hideAppBar,} from "../actions";
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {HOME,HISTORY,PROFILE} from "../constant/variable";
+import {PREFIX} from "../constant/variable";
 
 const styles = {
     root: {
@@ -39,7 +40,7 @@ class BottomNavigator extends React.Component {
             history,
             hideAppBar} = this.props;
         this.setState({ value });
-        history.push("/student/"+value)
+        history.push(PREFIX+"/student/"+value)
         changeTitleHeader(value)
         value === "profile" ? hideAppBar(true) : hideAppBar(false)
 

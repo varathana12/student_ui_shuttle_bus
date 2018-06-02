@@ -13,23 +13,24 @@ const styles = {
 
 };
 
-class CancelDialog extends React.Component {
+class Logout extends React.Component{
+
     render() {
-        const { classes,open,onClose,onSubmit} = this.props;
+        const { classes,open,onClose,onConfirm} = this.props;
 
         return (
             <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
-                <DialogTitle className={classes.title} id="simple-dialog-title" color="primary">Cancel Booking</DialogTitle>
+                <DialogTitle className={classes.title} id="simple-dialog-title" color="primary">Logout</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
-                        Are you sure to cancel this booking?
+                        Are you sure to Logout from App?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleClose} onClick={onClose} style={{color:success}}>
                         Cancel
                     </Button>
-                    <Button onClick={this.handleClose} onClick={()=>(onClose(),onSubmit())} style={{color:danger}}>
+                    <Button onClick={this.handleClose} onClick={()=>{onConfirm();onClose()}} style={{color:danger}}>
                         OK
                     </Button>
                 </DialogActions>
@@ -38,10 +39,10 @@ class CancelDialog extends React.Component {
     }
 }
 
-CancelDialog.propTypes = {
+Logout.propTypes = {
     classes: PropTypes.object.isRequired,
     onClose: PropTypes.object.isRequired,
 
 };
 
-export default withStyles(styles)(CancelDialog);
+export default withStyles(styles)(Logout);

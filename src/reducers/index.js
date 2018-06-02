@@ -14,17 +14,19 @@ import {
     HISTORY_DATA,
     STUDENT_INFO,
     TODAY,
-    LIST_ENABLE
+    LIST_ENABLE,
+    LIST_FINAL,
+    ENABLE_CHOICE
 } from "../constant/action_types";
 import {init_status_app_bar,init_route_name,init_date,init_return} from "../init";
-import {first_init_return} from "../init/date_fuction";
+import {first_init_return,init_today,first_init_date} from "../init/date_fuction";
 
 const initialState = {
     nameRoute : init_route_name,
     app_bar_status:init_status_app_bar,
     destination:'',
     source:'',
-    date:(new Date()),
+    date:(first_init_date()),
     isSubmit:false,
     source_data:[],
     destination_data:[],
@@ -34,8 +36,11 @@ const initialState = {
     return_date_status:true,
     history_data:[],
     student_info:{},
-    today:"",
-    list_enable:[]
+    today:init_today(),
+    list_enable:[],
+    list_final:[],
+    enable_choice:true
+
 }
 
 const rootReducer = (state = initialState, action)=>{
@@ -59,7 +64,7 @@ const rootReducer = (state = initialState, action)=>{
         case DESTINATION_DATA:
             return {...state,destination_data:action.payload}
         case RESET_STATE:
-            return {...state,source_data:[],date:"",isSubmit:false,destination:""}
+            return {...state,source_data:[],date:"",isSubmit:false,destination:"",list_enable:[]}
         case TRIP_CHOICE:
             return {...state,choice:action.payload}
         case RETURN_DATE_STATUS:
@@ -74,6 +79,10 @@ const rootReducer = (state = initialState, action)=>{
             return {...state,today:action.payload}
         case LIST_ENABLE:
             return {...state,list_enable:action.payload}
+        case LIST_FINAL:
+            return {...state,list_final:action.payload}
+        case ENABLE_CHOICE:
+            return {...state,enable_choice:action.payload}
         default:
             return state
     }

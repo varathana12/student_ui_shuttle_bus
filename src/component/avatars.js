@@ -29,7 +29,7 @@ const styles = {
 };
 
 function ImageAvatars(props) {
-    const { classes,image } = props;
+    const { classes,image,username } = props;
     return (
         <div className={classes.root}>
             <div className={classes.row} style={{marginTop:15}}>
@@ -37,11 +37,12 @@ function ImageAvatars(props) {
                     alt="Adelle Charles"
                     src={image}
                     className={classNames(classes.avatar, classes.bigAvatar)}
+
                 />
             </div>
             <div className={classes.row}>
                 <Typography gutterBottom variant="headline" component="h3" className={classes.name}>
-                    Va Rathana
+                    {username}
                 </Typography>
             </div>
         </div>

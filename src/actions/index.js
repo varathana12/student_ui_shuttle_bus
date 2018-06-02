@@ -15,7 +15,9 @@ import {
     LIST_DATE_DISABLE,
     HISTORY_DATA,
     TODAY,
-    LIST_ENABLE
+    LIST_ENABLE,
+    LIST_FINAL,
+    ENABLE_CHOICE
     } from "../constant/action_types";
 
 export const chageTitleHeader = nameRoute =>({type:CHANGE_TILTEL_HEADER,payload:nameRoute})
@@ -35,3 +37,5 @@ export const listDateDisable = data => ({type:LIST_DATE_DISABLE, payload:data})
 export const historyData= data => ({type:HISTORY_DATA, payload:data})
 export const toDay= date => ({type:TODAY, payload:date})
 export const listEnable= list => ({type:LIST_ENABLE, payload:list})
+export const listFinal= list => ({type:LIST_FINAL, payload:list})
+export const enableChoice= status => ({type:ENABLE_CHOICE, payload:status})

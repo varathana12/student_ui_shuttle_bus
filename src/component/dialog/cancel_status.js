@@ -10,7 +10,6 @@ import {success,danger,view} from "../../constant/color";
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {chageTitleHeader} from "../../actions";
-import {PREFIX} from "../../constant/variable";
 const styles = {
     content:{
         textAlign:"center"
@@ -20,15 +19,13 @@ const styles = {
         color:"gray"
     },
     dialogAction:{
-      width:"100%",
-      margin:"0 20px"
+        width:"100%",
+        margin:"0 20px"
     },
     onLyOkButton:{
         border:"1px solid",
     },
     okButton:{
-        float:"left",
-        width:"40%",
         border:"1px solid",
     },
     viewButton:{
@@ -38,36 +35,33 @@ const styles = {
     }
 
 };
-class StatusDialog extends React.Component {
+class CancelStatus extends React.Component {
     render() {
-        const { classes,open,onClose,history,title,status} = this.props;
+        const { classes,open,onClose,status,Confirm} = this.props;
         return (
             <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
                 <DialogTitle id="simple-dialog-title" color={status?success:danger}  className={classes.title}>
-                    {status?"Successful Booking ":"Failed Booking"}</DialogTitle>
+                    {status?"Successful Cancel Booking ":"Failed Cancel Booking"}</DialogTitle>
                 <DialogContent className={classes.content}>
                     <DialogContentText>
-                    {status?<SuccessIcon style={{ fontSize: 150,color:success }}/>:<ErrorIcon style={{ fontSize: 150,color:danger }}/>}
+                        {status?<SuccessIcon style={{ fontSize: 150,color:success }}/>:
+                            <ErrorIcon style={{ fontSize: 150,color:danger }}/>}
                     </DialogContentText>
                 </DialogContent>
                 <DialogContent className={classes.content}>
                     <DialogContentText>
-                        {status?"Successfully Booking! Please Enjoy Your Trip."
+                        {status?"Successfully Cancel Booking !"
                             :"Sorry! Please check Internet connection and book again."}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions className={"status_action"}>
                     {status?
-                        <span>
-                            <Button className={classes.okButton}
-                                    onClick={()=>{onClose();window.location.reload()}} style={{color:success}}>
+
+                            <Button className={classes.okButton} fullWidth={true}
+                                    onClick={()=>{onClose();Confirm()}} style={{color:success}}>
                                 OK
                             </Button>
-                            <Button className={classes.viewButton} onClick={()=>{history.push(PREFIX+'/student/history');
-                            title('history')}} style={{color:view}} >
-                                View
-                            </Button>
-                        </span>
+
                         :<Button className={classes.onLyOkButton} fullWidth={true} onClick={onClose} style={{color:success}}>
                             OK
                         </Button>
@@ -78,7 +72,7 @@ class StatusDialog extends React.Component {
         );
     }
 }
-StatusDialog.propTypes = {
+CancelStatus.propTypes = {
     classes: PropTypes.object.isRequired,
 
 };
@@ -89,4 +83,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null,mapDispatchToProps)(withStyles(styles)(withRouter(StatusDialog)));
+export default connect(null,mapDispatchToProps)(withStyles(styles)(withRouter(CancelStatus)));

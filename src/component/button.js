@@ -11,9 +11,10 @@ const styles = theme => ({
 });
 
 function PrimaryButton(props) {
-    const { classes,onSubmit} = props;
+    const { classes,onSubmit,disable} = props;
     return (
             <Button color="primary" onClick={onSubmit}
+                    disabled={disable}
                     className={classes.button} fullWidth={true} size="large">
                 Book Now
             </Button>

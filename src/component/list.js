@@ -4,9 +4,10 @@ import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText,ListItemIcon } from 'material-ui/List';
 import EmailIcon from 'material-ui-icons/Email';
 import PhoneIcon from 'material-ui-icons/Phone';
-import SchoolIcon from 'material-ui-icons/School';
 import DirectionBusIcon from 'material-ui-icons/DirectionsBus'
-import {success} from "../constant/color";
+import {success,danger} from "../constant/color";
+import Exit from '@material-ui/icons/ExitToApp'
+import Logout from './dialog/logout'
 
 const styles = theme => ({
     root: {
@@ -15,39 +16,42 @@ const styles = theme => ({
     },
 });
 
-function FolderList(props) {
-    const { classes,student } = props;
-    return (
-        <div className={classes.root}>
-            <List>
-                <ListItem button>
-                        <ListItemIcon >
-                        <EmailIcon style={{color:success}} />
+class  FolderList extends React.Component {
+    state={
+        open:false,
+    }
+    onConfirm(){
+        document.getElementById("logoutForm").submit();
+    }
+    render() {
+        const {classes, student} = this.props;
+        const {open} = this.state
+        return (
+            <div className={classes.root}>
+                <List>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <EmailIcon style={{color: success}}/>
                         </ListItemIcon>
-                    <ListItemText primary={student.email} secondary="email" />
-                </ListItem>
-                <ListItem button>
+                        <ListItemText secondary={student.email} primary="Email"/>
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <DirectionBusIcon style={{color: success}}/>
+                        </ListItemIcon>
+                        <ListItemText secondary={student.ticket + " Tickets"} primary="Ticket remaining"/>
+                    </ListItem>
+                </List>
+                <ListItem button onClick={()=>this.setState({open:true})}>
                     <ListItemIcon>
-                        <PhoneIcon style={{color:success}}/>
+                        <Exit style={{color: danger}}/>
                     </ListItemIcon>
-                    <ListItemText primary={student.phone? student.phone : "Unknown"} secondary="phone number" />
+                    <ListItemText primary="Logout" secondary="logout from system"/>
                 </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <SchoolIcon style={{color:success}}/>
-                    </ListItemIcon>
-                    <ListItemText primary={"Batch "+student.batch} secondary="generation" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <DirectionBusIcon style={{color:success}}/>
-                    </ListItemIcon>
-                    <ListItemText primary={student.ticket+" Tickets"} secondary="ticket remaining" />
-                </ListItem>
-
-            </List>
-        </div>
-    );
+                <Logout open={open} onClose={() => this.setState({open: false})} onConfirm={() => this.onConfirm()}/>
+            </div>
+        );
+    }
 }
 
 FolderList.propTypes = {
