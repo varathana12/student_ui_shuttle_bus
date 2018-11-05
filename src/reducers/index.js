@@ -16,7 +16,9 @@ import {
     TODAY,
     LIST_ENABLE,
     LIST_FINAL,
-    ENABLE_CHOICE
+    ENABLE_CHOICE,
+    REMAINING_TICKET,
+    DISABLED_BUTTON
 } from "../constant/action_types";
 import {init_status_app_bar,init_route_name,init_date,init_return} from "../init";
 import {first_init_return,init_today,first_init_date} from "../init/date_fuction";
@@ -39,7 +41,10 @@ const initialState = {
     today:init_today(),
     list_enable:[],
     list_final:[],
-    enable_choice:true
+    enable_choice:true,
+    remaining_ticket:0,
+    disabled_button:false
+
 
 }
 
@@ -83,6 +88,10 @@ const rootReducer = (state = initialState, action)=>{
             return {...state,list_final:action.payload}
         case ENABLE_CHOICE:
             return {...state,enable_choice:action.payload}
+        case REMAINING_TICKET:
+            return {...state,remaining_ticket:action.payload}
+        case DISABLED_BUTTON:
+            return {...state,disabled_button:action.payload}
         default:
             return state
     }

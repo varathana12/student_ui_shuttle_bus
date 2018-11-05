@@ -13,7 +13,7 @@ import {SimpleTable} from '../root'
 import {historyData, sourceData} from "../actions";
 import {get_history, source_data_api} from "../api";
 import {id_to_name,convert_date_fomart} from "../init";
-
+import {standard} from "../init/date_fuction";
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -71,17 +71,17 @@ class History extends React.Component {
                         return (
                             <ExpansionPanel className={classes.expand} key={index} expanded={expanded === ''+index}
                                             onChange={this.handleChange(''+index)}>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <ExpansionPanelSummary style={{width:"unset"}} expandIcon={<ExpandMoreIcon />}>
                                     <table className="table_expand">
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <Typography className={classes.heading}>
-                                                        {item.destination_name}</Typography>
+                                                    <Typography style={{whiteSpace:"nowrap"}} className={classes.heading}>
+                                                        {item.source_name+" -- "+item.destination_name}</Typography>
                                                 </td>
                                                 <td>
-                                                    <Typography className={classes.secondaryHeading}>
-                                                        {convert_date_fomart(item.departure_date)}</Typography>
+                                                    <Typography style={{whiteSpace:"nowrap"}} className={classes.secondaryHeading}>
+                                                        {" : "+standard(item.departure_date)}</Typography>
                                                 </td>
                                             </tr>
                                         </tbody>

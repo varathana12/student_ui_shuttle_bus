@@ -1,34 +1,43 @@
+/* eslint-disable react/no-multi-comp */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import Dialog from 'material-ui/Dialog';
+import Dialog, {
+} from 'material-ui/Dialog';
+import blue from 'material-ui/colors/blue';
 
-
+var QRCode = require('qrcode-react');
 const styles = {
-
+    avatar: {
+        backgroundColor: blue[100],
+        color: blue[600],
+    },
+    dialog:{
+        margin:0,
+        flexDirection:"row"
+    }
 };
 
 class QRView extends React.Component {
-    render() {
-        const {open,onClose} = this.props;
 
+    render() {
+        const { classes, onClose, open , qr} = this.props;
         return (
-            <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
-                <img style={{maxWidth:400}} width={(window.outerWidth-64)+"px"}
-                     src={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAAB9AQAAAACn+1GIAAAApEl" +
-                     "EQVR42u3VMQ7DMAwDQP6A//+lxm4qxbZoPZpOtwQGnNxg2JSMoNfngRsugALQgKcYPN5TCoVqlqcTqOIFU" +
-                     "GcwQ9/raTdB6XrN39Q3wc9saqn+HhQbZM2cg96ISYk5tMNRqRCDDkZH9Ak5AfeKztfIYTp/9oaOwcXWkqwDe" +
-                     "OWszTGH6Xr4CpzB2jAZqNDf6gdgU/P+XuRdmJCbBDuG+x/1b3gCOSaFcLrWXbIAAAAASUVORK5CYII\n"}></img>
+            <Dialog onClose={this.handleClose} className={classes.dialog} aria-labelledby="simple-dialog-title" open={open}
+                    onClose={onClose} >
+                <div style={{padding:10,paddingBottom:8}}>
+                    <QRCode value={qr} size={200}/>
+                </div>
+
+
             </Dialog>
         );
+
     }
 }
 
 QRView.propTypes = {
     classes: PropTypes.object.isRequired,
-    onClose: PropTypes.object.isRequired,
-
 };
-
 export default withStyles(styles)(QRView);

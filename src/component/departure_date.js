@@ -20,11 +20,12 @@ class DepartureDate extends PureComponent {
     changeDepartureDate(date){
         const {departureDate,return_date, returnDateStatus,
             list_final,enableChoice,tripChoice} = this.props
-        console.log(list_final)
+
         departureDate(date.toDate())
-        returnDateStatus(date < return_date)
+        returnDateStatus(date.toDate() < return_date.getDate())
+        console.log(list_final)
         if(date.toDate().getDay() === list_final[list_final.length -1]){
-            enableChoice(false)
+            //enableChoice(false)
             tripChoice("1")
         }else {
             enableChoice(true)

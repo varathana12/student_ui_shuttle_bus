@@ -2,4 +2,26 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#background{
+  background: url('https://vkirirom.com/images/HomePage/slider/PineResort1.jpg') center center no-repeat;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+}
+#background:before {
+  content: '';
+  background-image: linear-gradient(to bottom right, gray, gray);
+  opacity: 0.7;
+}
+
+body::-webkit-scrollbar{
+  display: none;
 }

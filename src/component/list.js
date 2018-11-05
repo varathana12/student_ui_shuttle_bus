@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText,ListItemIcon } from 'material-ui/List';
 import EmailIcon from 'material-ui-icons/Email';
-import PhoneIcon from 'material-ui-icons/Phone';
 import DirectionBusIcon from 'material-ui-icons/DirectionsBus'
 import {success,danger} from "../constant/color";
-import Exit from '@material-ui/icons/ExitToApp'
+import Exit from 'material-ui-icons/ExitToApp'
 import Logout from './dialog/logout'
 
 const styles = theme => ({
@@ -29,13 +28,13 @@ class  FolderList extends React.Component {
         return (
             <div className={classes.root}>
                 <List>
-                    <ListItem button>
+                    <ListItem>
                         <ListItemIcon>
                             <EmailIcon style={{color: success}}/>
                         </ListItemIcon>
                         <ListItemText secondary={student.email} primary="Email"/>
                     </ListItem>
-                    <ListItem button>
+                    <ListItem>
                         <ListItemIcon>
                             <DirectionBusIcon style={{color: success}}/>
                         </ListItemIcon>

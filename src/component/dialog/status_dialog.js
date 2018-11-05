@@ -4,12 +4,13 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Dialog, { DialogTitle,
     DialogContent,DialogContentText,DialogActions } from 'material-ui/Dialog';
-import ErrorIcon from '@material-ui/icons/Error'
-import SuccessIcon from '@material-ui/icons/CheckCircle'
+import ErrorIcon from 'material-ui-icons/Error'
+import SuccessIcon from 'material-ui-icons/CheckCircle'
 import {success,danger,view} from "../../constant/color";
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {chageTitleHeader} from "../../actions";
+import {chageTitleHeader,historyData} from "../../actions";
+import {get_history} from "../../api";
 import {PREFIX} from "../../constant/variable";
 const styles = {
     content:{
@@ -39,6 +40,18 @@ const styles = {
 
 };
 class StatusDialog extends React.Component {
+
+    onView(){
+        const {historyData,history,title} = this.props
+        /*get_history().then(res=>{
+            historyData(res)
+            history.push(PREFIX+'/student/History');
+            title('History')
+
+        })*/
+        window.location.href = PREFIX+'/student/History'
+    }
+
     render() {
         const { classes,open,onClose,history,title,status} = this.props;
         return (
@@ -63,8 +76,7 @@ class StatusDialog extends React.Component {
                                     onClick={()=>{onClose();window.location.reload()}} style={{color:success}}>
                                 OK
                             </Button>
-                            <Button className={classes.viewButton} onClick={()=>{history.push(PREFIX+'/student/history');
-                            title('history')}} style={{color:view}} >
+                            <Button className={classes.viewButton} onClick={()=>{this.onView()}} style={{color:view}} >
                                 View
                             </Button>
                         </span>
@@ -80,11 +92,12 @@ class StatusDialog extends React.Component {
 }
 StatusDialog.propTypes = {
     classes: PropTypes.object.isRequired,
-
 };
 const mapDispatchToProps = dispatch => {
     return {
         title:title=>(dispatch(chageTitleHeader(title))),
+        historyData:data=>(dispatch(historyData(data)))
+
 
     }
 }

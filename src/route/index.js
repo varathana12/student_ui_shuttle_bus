@@ -8,9 +8,9 @@ import {PREFIX} from "../constant/variable";
 export const Main = () => (
 
         <div>
-            <Route exact path={PREFIX+"/student(|/booking)"} component={Home}/>
-            <Route exact path={PREFIX+"/student/history"} component={History}/>
-            <Route exact path={PREFIX+"/student/profile"} component={Profile}/>
+            <Route exact path={PREFIX+"/student(|/Booking)"} component={Home}/>
+            <Route exact path={PREFIX+"/student/History"} component={History}/>
+            <Route exact path={PREFIX+"/student/Profile"} component={Profile}/>
         </div>
 
 )

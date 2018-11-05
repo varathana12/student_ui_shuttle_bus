@@ -58,3 +58,6 @@
     margin: 0 20px !important;
     margin-bottom: 20px !important;
 }
+.confirm_dialog + div{
+    max-width: 500px;
+}

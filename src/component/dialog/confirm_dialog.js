@@ -10,6 +10,10 @@ import {success,danger} from "../../constant/color";
 import {id_to_name} from "../../init/index";
 
 const styles = theme => ({
+    paperWidthSm:{
+      maxWidth:500
+    },
+
     last_cell:{
         paddingRight:0
     },
@@ -42,32 +46,34 @@ class ConfirmDialog extends React.Component {
         const { open,onClose,confirm,source_data,booking_data,classes} = this.props;
         const {destination,source,departure_date,return_date,choice} = booking_data
         return (
-            <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
+            <Dialog onClose={onClose} aria-labelledby="simple-dialog-title"
+                    className={"confirm_dialog"}
+                    open={open}>
                 <DialogTitle id="simple-dialog-title"  className={classes.title}>Booking Confirm</DialogTitle>
                 <DialogContent>
                     <Table className="table_cl table_dl" style={{width:window.outerWidth -110,maxWidth:490}}>
                         <TableBody>
                             <TableRow>
-                                <TableCell>{"Source"}</TableCell>
+                                <TableCell><span style={{fontWeight: "bold"}}>{"From"}</span></TableCell>
                                 <TableCell>
                                     <span style={{fontWeight: "bold", fontSize: 20, paddingRight: 5}}>:</span>
                                     {id_to_name(source_data,source)}
                                     </TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell><span style={{fontWeight: "bold"}}>{"Destination"}</span></TableCell>
+                                <TableCell><span style={{fontWeight: "bold"}}>{"To"}</span></TableCell>
                                 <TableCell className={classes.last_cell}>
                                     <span style={{fontWeight: "bold", fontSize: 20, paddingRight: 5}}>:</span>
                                     {id_to_name(source_data,destination)}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell>{"Trip"}</TableCell>
+                                <TableCell><span style={{fontWeight: "bold"}}>{"Trip"}</span></TableCell>
                                 <TableCell>
                                     <span style={{fontWeight: "bold", fontSize: 20, paddingRight: 5}}>:</span>
                                     {choice === 1 ? "One Way":"Round Way"}</TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell>{"Departure Date"}</TableCell>
+                                <TableCell><span style={{fontWeight: "bold"}}>{"Departure Date"}</span></TableCell>
                                 <TableCell>
                                     <span style={{fontWeight: "bold", fontSize: 20, paddingRight: 5}}>:</span>
                                     {departure_date.toLocaleString().split(", ")[0]}</TableCell>
@@ -75,7 +81,7 @@ class ConfirmDialog extends React.Component {
                             {
                                 choice === 2?
                                     <TableRow>
-                                        <TableCell>{"Return Date"}</TableCell>
+                                        <TableCell><span style={{fontWeight: "bold"}}>{"Return Date"}</span></TableCell>
                                         <TableCell>
                                             <span style={{fontWeight: "bold", fontSize: 20, paddingRight: 5}}>:</span>
                                             {return_date.toLocaleString().split(", ")[0]}</TableCell>

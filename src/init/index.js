@@ -1,10 +1,11 @@
 import moment from 'moment'
+import {PROFILE,HOME} from "../constant/variable";
 import {list_disable_date} from "../api";
 import {remove} from "./aditional";
 const path = window.location.pathname
 var array = path.split('/');
-export const init_status_app_bar = array[array.length -1] === "profile" ? true : false;
-export const init_route_name = array[array.length-1]
+export const init_status_app_bar = array[array.length -1] === PROFILE ? true : false;
+export const init_route_name = array[array.length-1] && !(array[array.length-1]==="student")?array[array.length-1]:HOME
 
 
 

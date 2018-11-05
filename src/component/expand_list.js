@@ -10,6 +10,8 @@ import {connect} from 'react-redux'
 import {student_cancel,get_history} from "../api";
 import CancelStatus from './dialog/cancel_status'
 import {historyData} from "../actions";
+import {standard} from "../init/date_fuction";
+
 const styles = theme => ({
     root: {
         width: '100%',
@@ -43,13 +45,14 @@ class SimpleTable extends React.Component{
         status_cancel:false
     }
     cellItems(data){
-        const {destination_name,code,source_name,departure_date,driver,bus_model} = data
+        const {destination_name,code,source_name,departure_date,driver,bus_model,dept_time} = data
         console.log(data)
         return [
             {name:'Code', data:code},
             {name:'Source', data:source_name},
             {name:'Destination', data:destination_name},
-            {name:'Departure Date', data:convert_date_fomart(departure_date)},
+            {name:'Departure Date', data:standard(departure_date)},
+            {name:'Departure Time', data:dept_time},
             {name:'Bus Model', data:bus_model?bus_model:"to be decide"},
             {name:'Driver', data:driver?driver:"to be decide"},
         ];
@@ -57,6 +60,8 @@ class SimpleTable extends React.Component{
     submitCancel(id){
         student_cancel(id).then(res=>{
             this.setState({open_status:true,status_cancel:res.status})
+        }).catch(()=>{
+            this.setState({open_status:true,status_cancel:false})
         })
     }
     onConfirm(){
@@ -69,7 +74,7 @@ class SimpleTable extends React.Component{
     render() {
         const {classes,data} = this.props;
         const {cancel_dialog,qr_view,id_cancel,open_status,status_cancel} = this.state;
-        const {schedule} = data
+        const {schedule,qr_code} = data
         return (
 
             <Table className="table_cl">
@@ -81,19 +86,13 @@ class SimpleTable extends React.Component{
                                 <TableCell numeric><span
                                     style={{fontWeight: "bold", fontSize: 20, paddingRight: 5}}>:</span>{item.data}
                                 </TableCell>
-
                             </TableRow>
                         );
                     })}
                     {
                         schedule ?
                             <TableRow>
-                                <TableCell>
-                                    <Button color="secondary"
-                                            onClick={()=>this.setState({cancel_dialog:true,id_cancel:data.schedule_id})}
-                                            className={classes.cancel} >Cancel</Button>
-                                </TableCell>
-                                <TableCell>
+                                <TableCell colSpan={2}>
                                     <Button color="primary" onClick={()=>this.setState({qr_view:true})}
                                             className={classes.qr}>QR Code</Button>
                                 </TableCell>
@@ -110,7 +109,7 @@ class SimpleTable extends React.Component{
                 </TableBody>
                 <CancelDialog onClose={()=>this.setState({cancel_dialog:false})}
                               open={cancel_dialog} onSubmit={()=>{this.submitCancel(id_cancel)}}/>
-                <QRView onClose={()=>this.setState({qr_view:false})} open={qr_view}/>
+                <QRView onClose={()=>this.setState({qr_view:false})} qr={qr_code} open={qr_view}/>
                 <CancelStatus open={open_status}
                               status={status_cancel}
                               Confirm={()=>this.onConfirm()}

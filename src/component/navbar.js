@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-
+import {WIDTH} from "../constant/variable";
 import {connect} from 'react-redux'
 
 const mapStateToProps = state =>{
@@ -20,6 +20,7 @@ const styles = {
         position:"fixed",
         top:0,
         width:"100%",
+        maxWidth:WIDTH,
         zIndex:1
 
     },
@@ -41,7 +42,7 @@ function NavBar(props) {
                     <AppBar position="static" color="primary" >
                         <Toolbar className={classes.title}>
                             <Typography variant="title" color="inherit" >
-                                {nameRoute.toUpperCase()}
+                                {nameRoute}
                             </Typography>
                         </Toolbar>
                     </AppBar>

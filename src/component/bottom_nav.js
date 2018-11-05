@@ -9,13 +9,15 @@ import {chageTitleHeader,hideAppBar,} from "../actions";
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {HOME,HISTORY,PROFILE} from "../constant/variable";
-import {PREFIX} from "../constant/variable";
+import {PREFIX,WIDTH} from "../constant/variable";
 
 const styles = {
     root: {
         width: "100%",
+        maxWidth:WIDTH,
         position:"fixed",
         bottom:0,
+        zIndex:1,
         boxShadow: "0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px " +
         "5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)"
     },
@@ -40,9 +42,10 @@ class BottomNavigator extends React.Component {
             history,
             hideAppBar} = this.props;
         this.setState({ value });
+        console.log(value)
         history.push(PREFIX+"/student/"+value)
         changeTitleHeader(value)
-        value === "profile" ? hideAppBar(true) : hideAppBar(false)
+        value === PROFILE ? hideAppBar(true) : hideAppBar(false)
 
     };
 
@@ -55,9 +58,9 @@ class BottomNavigator extends React.Component {
                 showLabels
                 className={classes.root}
             >
-                <BottomNavigationAction label={HOME} value="booking" icon={<HomeIcon />} />
-                <BottomNavigationAction label={HISTORY} value="history" icon={<HistoryIcon />} />
-                <BottomNavigationAction label={PROFILE} value="profile" icon={<PeopleIcon />} />
+                <BottomNavigationAction label={HOME} value={HOME} icon={<HomeIcon />} />
+                <BottomNavigationAction label={HISTORY} value={HISTORY} icon={<HistoryIcon />} />
+                <BottomNavigationAction label={PROFILE} value={PROFILE} icon={<PeopleIcon />} />
             </BottomNavigation>
         );
     }

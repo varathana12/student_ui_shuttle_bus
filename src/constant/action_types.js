@@ -13,6 +13,7 @@ export const STUDENT_INFO = "STUDENT_INFO";
 export const LIST_DATE_DISABLE = "LIST_DATE_DISABLE";
 export const HISTORY_DATA = "HISTORY_DATA";
 export const LIST_ENABLE = "LIST_ENABLE";
+export const REMAINING_TICKET = "REMAINING_TICKET";
 
 /*---------------------- reset --------------------*/
 
@@ -27,4 +28,4 @@ export const ENABLE_CHOICE = "ENABLE_CHOICE"
 /*---------------------- status --------------------*/
 
 export const RETURN_DATE_STATUS = "RETURN_DATE_STATUS";
-
+export const DISABLED_BUTTON = "DISABLED_BUTTON";

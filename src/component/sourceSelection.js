@@ -28,6 +28,7 @@ class Source extends React.Component {
         const {selectSource,source_data,destinationData,destination,selectDestination} = this.props
         const {value,name} = event.target
         this.setState({ [name]: value });
+        console.log(value)
         selectSource(value)
         if(value===destination){
             selectDestination(0)
@@ -44,7 +45,7 @@ class Source extends React.Component {
     handleOpen = () => {
         this.setState({ open: true });
     };
-    
+
     componentWillMount(){
         const {source} = this.props
 
@@ -67,8 +68,8 @@ class Source extends React.Component {
 
         })
         return (
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="source" error={required&&isSubmit}>Source</InputLabel>
+                <FormControl className={classes.formControl} error={required&&isSubmit}>
+                    <InputLabel htmlFor="source" >From</InputLabel>
                     <Select
                         open={this.state.open}
                         onClose={this.handleClose}

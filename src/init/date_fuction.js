@@ -1,14 +1,28 @@
 import moment from 'moment'
 
 
+export const standard =(datetime)=>{
+    console.log(datetime)
+    var date = moment(datetime).format('MMM DD, YYYY');
+    return date;
+}
+
 export const init_today =()=>{
     let date  = new Date()
     return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()
 }
 
-export const min_date_booking =(today)=>{
+export const min_date_booking =(today,return_statue)=>{
     let current = moment(today).toDate();
-    current.setDate(current.getDate()+1);
+    if(return_statue){
+        current.setDate(current.getDate()+1);
+    }
+    else{
+        current.setDate(current.getDate()+2);
+    }
+
+
+
     return current.getFullYear()+"/"+(current.getMonth()+1)+"/"+current.getDate()
 }
 export const first_init_date = ()=>{
@@ -23,9 +37,10 @@ export const first_init_return=()=>{
 }
 
 export const list_enable_method = (list,list_booked)=>{
+    console.log(list)
     var enable = []
     let temp
-    for(var i in list){
+    for(var i in list.sort()){
         enable.push(list[i])
         temp = list[i]+2
         if(temp >= 7) {
@@ -33,7 +48,13 @@ export const list_enable_method = (list,list_booked)=>{
         }
         enable.push(temp)
     }
-    return remove(Array.from(new Set(enable)),list_booked)
+    if(Array.from(new Set(enable)).length === list_booked.length){
+        enable.push(10)
+        return Array.from(new Set(enable))
+    }else{
+        return remove(Array.from(new Set(enable)),list_booked)
+    }
+
 
 }
 
@@ -55,7 +76,7 @@ export const init_booking =(list)=>{
 
 export const max_date_booking = today =>{
     var current  = moment(today).toDate()
-    current.setDate(current.getDate()+8)
+    current.setDate(current.getDate()+7)
     return current.getFullYear()+"/"+(current.getMonth()+1)+"/"+current.getDate()
 }
 export const list_booked= (list)=>{
@@ -68,7 +89,7 @@ export const list_booked= (list)=>{
 
 export const init_date_booking = (today,list)=>{
     let day = moment(today).toDate()
-    day.setDate(day.getDate()+1);
+    day.setDate(day.getDate()+2);
     while(true){
         for(var i in list){
             if(day.getDay() === list[i])

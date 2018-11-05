@@ -7,7 +7,6 @@ import { FormControl,FormHelperText } from 'material-ui/Form';
 import Select from 'material-ui/Select';
 import {selectDestination} from "../actions";
 import {connect} from 'react-redux'
-import {student_info} from "../api";
 import './style.css'
 
 class Destination extends React.Component {
@@ -18,7 +17,9 @@ class Destination extends React.Component {
 
     handleChange = event => {
         const {selectDestination} = this.props
+
         const {name,value} = event.target
+        console.log(value)
         this.setState({ [name]:value });
         selectDestination(value)
 
@@ -44,7 +45,7 @@ class Destination extends React.Component {
         const { classes,isSubmit,destinationData,destination } = this.props;
         return (
                 <FormControl className={classes.formControl} error={!destination && isSubmit}>
-                    <InputLabel htmlFor="destination">Destination</InputLabel>
+                    <InputLabel htmlFor="destination">To</InputLabel>
                     <Select
                         open={this.state.open}
                         onClose={this.handleClose}
